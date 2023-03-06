@@ -1,15 +1,7 @@
 ﻿using EmployeeManagement.Models.Enums;
 
 namespace EmployeeManagement.DTOs.Employee
-{
-    public class GetAllEmployeesDTO
-    {
-        public int EmployeeID { get; set; }
-        public string Name { get; set; }
-        public string PhoneNumber { get; set; }
-        public string Email { get; set; }
-    }
-
+{   
     public class GetEmployeeDTO
     {
         public int EmployeeID { get; set; }

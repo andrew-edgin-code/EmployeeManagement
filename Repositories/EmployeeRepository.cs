@@ -1,5 +1,6 @@
 ﻿using EmployeeManagement.Data;
 using EmployeeManagement.DTOs.Employee;
+using EmployeeManagement.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeManagement.Repositories
@@ -13,14 +14,21 @@ namespace EmployeeManagement.Repositories
             _dataContext = dataContext;
         }
 
-        public async Task<IEnumerable<GetAllEmployeesDTO>> GetAllEmployees(CancellationToken cancellationToken)
+        public async Task<IEnumerable<GetEmployeeDTO>> GetAllEmployees(CancellationToken cancellationToken)
         {
-            return await _dataContext.Employees.Select(e => new GetAllEmployeesDTO
+            return await _dataContext.Employees.Select(e => new GetEmployeeDTO
             {
                 EmployeeID = e.EmployeeID,
                 Name = $"{e.FirstName} {e.LastName}",
                 Email = e.Email,
-                PhoneNumber = e.PhoneNumber
+                PhoneNumber = e.PhoneNumber,
+                StreetAddress = e.StreetAddress,
+                City = e.City,
+                State = e.State,
+                PostalCode = e.PostalCode,
+                SocialSecurityNumber = e.SocialSecurityNumber,
+                BirthDate = e.BirthDate,
+                MaritalStatus = e.MaritalStatus
             }).ToListAsync(cancellationToken);
         }
 
@@ -49,6 +57,56 @@ namespace EmployeeManagement.Repositories
             {
                 throw new Exception("FUCK");
             }
+        }
+
+        public async Task CreateEmployee(UpdateEmployeeDTO employeeData, CancellationToken cancellationToken)
+        {
+            var newEmployee = new Employee
+            {
+                FirstName = employeeData.FirstName,
+                MiddleName = employeeData.MiddleName,
+                LastName = employeeData.LastName,
+                PhoneNumber = employeeData.PhoneNumber,
+                Email = employeeData.Email,
+                StreetAddress= employeeData.StreetAddress,
+                City = employeeData.City,
+                State = employeeData.State,
+                PostalCode = employeeData.PostalCode,
+                SocialSecurityNumber= employeeData.SocialSecurityNumber,
+                BirthDate = employeeData.BirthDate,
+                MaritalStatus= employeeData.MaritalStatus
+            };
+
+            _dataContext.Employees.Add(newEmployee);
+            await _dataContext.SaveChangesAsync(cancellationToken);
+        }
+        
+        public async Task UpdateEmployee(UpdateEmployeeDTO employeeData, int employeeID, CancellationToken cancellationToken)
+        {
+            var employee = await _dataContext.Employees.Where(e => e.EmployeeID == employeeID).FirstOrDefaultAsync(cancellationToken);
+
+            employee.FirstName = employeeData.FirstName;
+            employee.MiddleName = employeeData.MiddleName;
+            employee.LastName = employeeData.LastName;
+            employee.PhoneNumber = employeeData.PhoneNumber;
+            employee.Email = employeeData.Email;
+            employee.StreetAddress = employeeData.StreetAddress;
+            employee.City = employeeData.City;
+            employee.State = employeeData.State;
+            employee.PostalCode = employeeData.PostalCode;
+            employee.SocialSecurityNumber = employeeData.SocialSecurityNumber;
+            employee.BirthDate = employeeData.BirthDate;
+            employee.MaritalStatus = employeeData.MaritalStatus;
+
+            await _dataContext.SaveChangesAsync(cancellationToken);
+        }
+
+        public async Task DeleteEmployee(int employeeID, CancellationToken cancellationToken)
+        {
+            var employeeToDelete = await _dataContext.Employees.Where(e => e.EmployeeID == employeeID).FirstOrDefaultAsync(cancellationToken);
+
+            _dataContext.Employees.Remove(employeeToDelete);
+            await _dataContext.SaveChangesAsync(cancellationToken);
         }
     }
 }
