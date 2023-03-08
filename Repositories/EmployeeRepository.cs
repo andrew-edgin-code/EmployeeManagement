@@ -1,6 +1,7 @@
 ﻿using EmployeeManagement.Data;
 using EmployeeManagement.DTOs.Employee;
 using EmployeeManagement.Models;
+using EmployeeManagement.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeManagement.Repositories
@@ -14,9 +15,9 @@ namespace EmployeeManagement.Repositories
             _dataContext = dataContext;
         }
 
-        public async Task<IEnumerable<GetEmployeeDTO>> GetAllEmployees(CancellationToken cancellationToken)
+        public async Task<IEnumerable<GetPositionDTO>> GetAllEmployees(CancellationToken cancellationToken)
         {
-            return await _dataContext.Employees.Select(e => new GetEmployeeDTO
+            return await _dataContext.Employees.Select(e => new GetPositionDTO
             {
                 EmployeeID = e.EmployeeID,
                 Name = $"{e.FirstName} {e.LastName}",
@@ -32,13 +33,13 @@ namespace EmployeeManagement.Repositories
             }).ToListAsync(cancellationToken);
         }
 
-        public async Task<GetEmployeeDTO> GetEmployee(int employeeID, CancellationToken cancellationToken)
+        public async Task<GetPositionDTO> GetEmployee(int employeeID, CancellationToken cancellationToken)
         {
             try
             {
                 return await _dataContext.Employees
                 .Where(e => e.EmployeeID == employeeID)
-                .Select(e => new GetEmployeeDTO
+                .Select(e => new GetPositionDTO
                 {
                     EmployeeID = e.EmployeeID,
                     Name = $"{e.FirstName} {e.LastName}",
@@ -59,7 +60,7 @@ namespace EmployeeManagement.Repositories
             }
         }
 
-        public async Task CreateEmployee(UpdateEmployeeDTO employeeData, CancellationToken cancellationToken)
+        public async Task CreateEmployee(UpdatePositionDTO employeeData, CancellationToken cancellationToken)
         {
             var newEmployee = new Employee
             {
@@ -81,7 +82,7 @@ namespace EmployeeManagement.Repositories
             await _dataContext.SaveChangesAsync(cancellationToken);
         }
         
-        public async Task UpdateEmployee(UpdateEmployeeDTO employeeData, int employeeID, CancellationToken cancellationToken)
+        public async Task UpdateEmployee(UpdatePositionDTO employeeData, int employeeID, CancellationToken cancellationToken)
         {
             var employee = await _dataContext.Employees.Where(e => e.EmployeeID == employeeID).FirstOrDefaultAsync(cancellationToken);
 

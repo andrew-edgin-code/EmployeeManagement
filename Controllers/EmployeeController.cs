@@ -30,13 +30,13 @@ namespace EmployeeManagement.Controllers
         }
 
         [HttpPost]
-        public async Task CreateEmployee([FromBody] UpdateEmployeeDTO employeeData, CancellationToken cancellationToken)
+        public async Task CreateEmployee([FromBody] UpdatePositionDTO employeeData, CancellationToken cancellationToken)
         {
             await _employeeService.CreateEmployee(employeeData, cancellationToken);
         }
 
         [HttpPatch("{employeeID}")]
-        public async Task UpdateEmployee([FromBody] UpdateEmployeeDTO employeeData, int employeeID, CancellationToken cancellationToken)
+        public async Task UpdateEmployee([FromBody] UpdatePositionDTO employeeData, int employeeID, CancellationToken cancellationToken)
         {
             await _employeeService.UpdateEmployee(employeeData, employeeID, cancellationToken);
         }

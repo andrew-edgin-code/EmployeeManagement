@@ -1,6 +1,6 @@
 ﻿namespace EmployeeManagement.Models.Enums
 {
-    public enum MaritalStatus
+    public enum MaritalStatusEnum
     {
         None = 0,
         Single = 1,

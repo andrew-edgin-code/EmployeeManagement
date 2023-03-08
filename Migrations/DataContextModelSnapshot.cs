@@ -77,7 +77,7 @@ namespace EmployeeManagement.Migrations
 
                     b.HasKey("EmployeeID");
 
-                    b.ToTable("Employees");
+                    b.ToTable("Employees", (string)null);
                 });
 #pragma warning restore 612, 618
         }

@@ -14,6 +14,6 @@ namespace EmployeeManagement.DTOs.Employee
         public string PostalCode { get; set; }
         public string SocialSecurityNumber { get; set; }
         public DateTime BirthDate { get; set; }
-        public MaritalStatus MaritalStatus { get; set; }
+        public MaritalStatusEnum MaritalStatus { get; set; }
     }
 }

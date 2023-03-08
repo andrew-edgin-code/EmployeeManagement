@@ -1,4 +1,4 @@
-﻿using EmployeeManagement.Models;
+﻿using EmployeeManagement.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeManagement.Data
@@ -17,5 +17,10 @@ namespace EmployeeManagement.Data
         }
 
         public DbSet<Employee> Employees { get; set; }
+        public DbSet<EmployeeEmergencyContact> EmployeeEmergencyContacts { get; set; }
+        public DbSet<Position> Positions { get; set; }
+        public DbSet<EmployeePosition> EmployeePositions { get; set; }
+        public DbSet<EmployeePositionRate> EmployeePositionRates { get; set; }
+
     }
 }

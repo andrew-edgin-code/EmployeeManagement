@@ -1,6 +1,6 @@
 ﻿using EmployeeManagement.Models.Enums;
 
-namespace EmployeeManagement.Models
+namespace EmployeeManagement.Models.Entities
 {
     public class Employee
     {
@@ -14,8 +14,12 @@ namespace EmployeeManagement.Models
         public string City { get; set; } = string.Empty;
         public StateEnum State { get; set; }
         public string PostalCode { get; set; } = string.Empty;
-        public string SocialSecurityNumber { get; set; } = string.Empty;
         public DateTime BirthDate { get; set; }
-        public MaritalStatus MaritalStatus { get; set; }
+        public string SocialSecurityNumber { get; set; } = string.Empty;
+        public GenderEnum Gender { get; set; }
+        public MaritalStatusEnum MaritalStatus { get; set; }
+
+        public List<EmployeePosition>? EmployeePositions { get; set; }
+        public List<EmployeeEmergencyContact>? EmployeeEmergencyContacts { get; set; }
     }
 }
