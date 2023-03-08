@@ -15,11 +15,13 @@ builder.Services.AddDbContext<DataContext>();
 #region Services
 builder.Services.AddScoped<EmployeeService>();
 builder.Services.AddScoped<PositionService>();
+builder.Services.AddScoped<EmployeeEmergencyContactService>();
 #endregion
 
 #region Repository
 builder.Services.AddScoped<EmployeeRepository>();
 builder.Services.AddScoped<PositionRepository>();
+builder.Services.AddScoped<EmployeeEmergencyContactRepository>();
 #endregion
 
 var app = builder.Build();
