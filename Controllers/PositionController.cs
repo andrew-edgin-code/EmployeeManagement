@@ -1,8 +1,8 @@
 ﻿using EmployeeManagement.DTOs.Employee;
 using Microsoft.AspNetCore.Mvc;
-using PositionManagement.Services;
+using EmployeeManagement.Services;
 
-namespace PositionManagement.Controllers
+namespace EmployeeManagement.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]

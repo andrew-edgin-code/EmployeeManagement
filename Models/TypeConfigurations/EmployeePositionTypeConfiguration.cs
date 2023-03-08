@@ -26,6 +26,7 @@ namespace EmployeeManagement.Models.TypeConfigurations
             builder
                 .HasMany(b => b.EmployeePositionRates)
                 .WithOne(b => b.EmployeePosition)
+                .HasPrincipalKey(b => b.EmployeePositionID)
                 .HasForeignKey(b => b.EmployeePositionID)
                 .OnDelete(DeleteBehavior.Cascade);
         }

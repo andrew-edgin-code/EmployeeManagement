@@ -1,4 +1,5 @@
 ﻿using EmployeeManagement.Models.Entities;
+using EmployeeManagement.Models.TypeConfigurations;
 using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeManagement.Data
@@ -22,5 +23,13 @@ namespace EmployeeManagement.Data
         public DbSet<EmployeePosition> EmployeePositions { get; set; }
         public DbSet<EmployeePositionRate> EmployeePositionRates { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfiguration(new EmployeeTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new EmployeeEmergencyContactTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new PositionTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new EmployeePositionTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new EmployeePositionRateTypeConfiguration());
+        }
     }
 }

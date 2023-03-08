@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeManagement.Models.TypeConfigurations
 {
-    public class EmployeePostionRateTypeConfiguration : IEntityTypeConfiguration<EmployeePositionRate>
+    public class EmployeePositionRateTypeConfiguration : IEntityTypeConfiguration<EmployeePositionRate>
     {
         public void Configure(EntityTypeBuilder<EmployeePositionRate> builder)
         {

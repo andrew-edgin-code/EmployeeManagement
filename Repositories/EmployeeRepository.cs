@@ -1,6 +1,5 @@
 ﻿using EmployeeManagement.Data;
 using EmployeeManagement.DTOs.Employee;
-using EmployeeManagement.Models;
 using EmployeeManagement.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,9 +14,9 @@ namespace EmployeeManagement.Repositories
             _dataContext = dataContext;
         }
 
-        public async Task<IEnumerable<GetPositionDTO>> GetAllEmployees(CancellationToken cancellationToken)
+        public async Task<IEnumerable<GetEmployeeDTO>> GetAllEmployees(CancellationToken cancellationToken)
         {
-            return await _dataContext.Employees.Select(e => new GetPositionDTO
+            return await _dataContext.Employees.Select(e => new GetEmployeeDTO
             {
                 EmployeeID = e.EmployeeID,
                 Name = $"{e.FirstName} {e.LastName}",
@@ -29,17 +28,18 @@ namespace EmployeeManagement.Repositories
                 PostalCode = e.PostalCode,
                 SocialSecurityNumber = e.SocialSecurityNumber,
                 BirthDate = e.BirthDate,
+                Gender = e.Gender,
                 MaritalStatus = e.MaritalStatus
             }).ToListAsync(cancellationToken);
         }
 
-        public async Task<GetPositionDTO> GetEmployee(int employeeID, CancellationToken cancellationToken)
+        public async Task<GetEmployeeDTO> GetEmployee(int employeeID, CancellationToken cancellationToken)
         {
             try
             {
                 return await _dataContext.Employees
                 .Where(e => e.EmployeeID == employeeID)
-                .Select(e => new GetPositionDTO
+                .Select(e => new GetEmployeeDTO
                 {
                     EmployeeID = e.EmployeeID,
                     Name = $"{e.FirstName} {e.LastName}",
@@ -51,6 +51,7 @@ namespace EmployeeManagement.Repositories
                     PostalCode = e.PostalCode,
                     SocialSecurityNumber = e.SocialSecurityNumber,
                     BirthDate = e.BirthDate,
+                    Gender = e.Gender,
                     MaritalStatus = e.MaritalStatus
                 }).FirstOrDefaultAsync(cancellationToken);
             }
@@ -60,7 +61,7 @@ namespace EmployeeManagement.Repositories
             }
         }
 
-        public async Task CreateEmployee(UpdatePositionDTO employeeData, CancellationToken cancellationToken)
+        public async Task CreateEmployee(UpdateEmployeeDTO employeeData, CancellationToken cancellationToken)
         {
             var newEmployee = new Employee
             {
@@ -75,6 +76,7 @@ namespace EmployeeManagement.Repositories
                 PostalCode = employeeData.PostalCode,
                 SocialSecurityNumber= employeeData.SocialSecurityNumber,
                 BirthDate = employeeData.BirthDate,
+                Gender = employeeData.Gender,
                 MaritalStatus= employeeData.MaritalStatus
             };
 
@@ -82,7 +84,7 @@ namespace EmployeeManagement.Repositories
             await _dataContext.SaveChangesAsync(cancellationToken);
         }
         
-        public async Task UpdateEmployee(UpdatePositionDTO employeeData, int employeeID, CancellationToken cancellationToken)
+        public async Task UpdateEmployee(UpdateEmployeeDTO employeeData, int employeeID, CancellationToken cancellationToken)
         {
             var employee = await _dataContext.Employees.Where(e => e.EmployeeID == employeeID).FirstOrDefaultAsync(cancellationToken);
 
@@ -97,6 +99,7 @@ namespace EmployeeManagement.Repositories
             employee.PostalCode = employeeData.PostalCode;
             employee.SocialSecurityNumber = employeeData.SocialSecurityNumber;
             employee.BirthDate = employeeData.BirthDate;
+            employee.Gender = employeeData.Gender;
             employee.MaritalStatus = employeeData.MaritalStatus;
 
             await _dataContext.SaveChangesAsync(cancellationToken);

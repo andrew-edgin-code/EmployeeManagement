@@ -1,7 +1,7 @@
 ﻿using EmployeeManagement.DTOs.Employee;
-using PositionManagement.Repositories;
+using EmployeeManagement.Repositories;
 
-namespace PositionManagement.Services
+namespace EmployeeManagement.Services
 {
     public class PositionService
     {
