@@ -17,9 +17,14 @@ namespace EmployeeManagement.Services
             return await _employeePositionRepository.GetCurrentPosition(employeeID, cancellationToken);
         }
 
-        public async Task UpdateEmployeePosition(UpdateEmployeePositionDTO employeePositionData, int employeeID, CancellationToken cancellationToken)
+        public async Task CreateEmployeePosition(CreateEmployeePositionDTO employeePositionData, int employeeID, CancellationToken cancellationToken)
         {
-            await _employeePositionRepository.UpdateEmployeePosition(employeePositionData, employeeID, cancellationToken);
+            await _employeePositionRepository.CreateEmployeePosition(employeePositionData, employeeID, cancellationToken);
+        }
+
+        public async Task UpdateEmployeePositionRate(UpdateEmployeePositionRateDTO employeePositionData, int employeeID, CancellationToken cancellationToken)
+        {
+            await _employeePositionRepository.UpdateEmployeePositionRate(employeePositionData, employeeID, cancellationToken);
         }
     }
 }

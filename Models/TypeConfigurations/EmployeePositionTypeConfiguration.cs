@@ -8,10 +8,11 @@ namespace EmployeeManagement.Models.TypeConfigurations
     {
         public void Configure(EntityTypeBuilder<EmployeePosition> builder)
         {
-            builder.HasKey(b => new { b.EmployeePositionID, b.EmployeeID, b.PositionID });
+            builder.HasKey(b => b.EmployeePositionID);
 
             builder.Property(b => b.Status).IsRequired();
             builder.Property(b => b.EffectiveDate).IsRequired();
+            builder.Property(b => b.Rate).IsRequired();
 
             builder
                 .HasOne(b => b.Employee)
@@ -22,13 +23,6 @@ namespace EmployeeManagement.Models.TypeConfigurations
                 .HasOne(b => b.Position)
                 .WithMany(b => b.EmployeePositions)
                 .OnDelete(DeleteBehavior.Restrict);
-            
-            builder
-                .HasMany(b => b.EmployeePositionRates)
-                .WithOne(b => b.EmployeePosition)
-                .HasPrincipalKey(b => b.EmployeePositionID)
-                .HasForeignKey(b => b.EmployeePositionID)
-                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

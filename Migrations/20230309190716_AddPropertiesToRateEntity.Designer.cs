@@ -4,6 +4,7 @@ using EmployeeManagement.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EmployeeManagement.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20230309190716_AddPropertiesToRateEntity")]
+    partial class AddPropertiesToRateEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -141,9 +144,6 @@ namespace EmployeeManagement.Migrations
                     b.Property<int>("PositionID")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("Rate")
-                        .HasColumnType("decimal(18,2)");
-
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
@@ -154,6 +154,33 @@ namespace EmployeeManagement.Migrations
                     b.HasIndex("PositionID");
 
                     b.ToTable("EmployeePositions");
+                });
+
+            modelBuilder.Entity("EmployeeManagement.Models.Entities.EmployeePositionRate", b =>
+                {
+                    b.Property<int>("EmployeePositionRateID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EmployeePositionRateID"));
+
+                    b.Property<DateTime>("EffectiveDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("EmployeePositionID")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Rate")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.HasKey("EmployeePositionRateID");
+
+                    b.HasIndex("EmployeePositionID");
+
+                    b.ToTable("EmployeePositionRates");
                 });
 
             modelBuilder.Entity("EmployeeManagement.Models.Entities.Position", b =>
@@ -207,11 +234,27 @@ namespace EmployeeManagement.Migrations
                     b.Navigation("Position");
                 });
 
+            modelBuilder.Entity("EmployeeManagement.Models.Entities.EmployeePositionRate", b =>
+                {
+                    b.HasOne("EmployeeManagement.Models.Entities.EmployeePosition", "EmployeePosition")
+                        .WithMany("EmployeePositionRates")
+                        .HasForeignKey("EmployeePositionID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("EmployeePosition");
+                });
+
             modelBuilder.Entity("EmployeeManagement.Models.Entities.Employee", b =>
                 {
                     b.Navigation("EmployeeEmergencyContacts");
 
                     b.Navigation("EmployeePositions");
+                });
+
+            modelBuilder.Entity("EmployeeManagement.Models.Entities.EmployeePosition", b =>
+                {
+                    b.Navigation("EmployeePositionRates");
                 });
 
             modelBuilder.Entity("EmployeeManagement.Models.Entities.Position", b =>

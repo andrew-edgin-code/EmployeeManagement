@@ -1,7 +1,8 @@
 ﻿namespace EmployeeManagement.DTOs.EmployeePosition
 {
-    public class UpdateEmployeePositionDTO
+    public class CreateEmployeePositionDTO
     {
         public int PositionID { get; set; }
+        public decimal Rate { get; set; }
     }
 }

@@ -21,7 +21,6 @@ namespace EmployeeManagement.Data
         public DbSet<EmployeeEmergencyContact> EmployeeEmergencyContacts { get; set; }
         public DbSet<Position> Positions { get; set; }
         public DbSet<EmployeePosition> EmployeePositions { get; set; }
-        public DbSet<EmployeePositionRate> EmployeePositionRates { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -29,7 +28,6 @@ namespace EmployeeManagement.Data
             modelBuilder.ApplyConfiguration(new EmployeeEmergencyContactTypeConfiguration());
             modelBuilder.ApplyConfiguration(new PositionTypeConfiguration());
             modelBuilder.ApplyConfiguration(new EmployeePositionTypeConfiguration());
-            modelBuilder.ApplyConfiguration(new EmployeePositionRateTypeConfiguration());
         }
     }
 }

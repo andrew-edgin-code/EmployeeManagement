@@ -22,9 +22,15 @@ namespace EmployeeManagement.Controllers
         }
 
         [HttpPost]
-        public async Task UpdateEmployeePosition([FromBody] UpdateEmployeePositionDTO employeePositionData, int employeeID, CancellationToken cancellationToken)
+        public async Task CreateEmployeePosition([FromBody] CreateEmployeePositionDTO employeePositionData, int employeeID, CancellationToken cancellationToken)
         {
-            await _employeePositionService.UpdateEmployeePosition(employeePositionData, employeeID, cancellationToken);
+            await _employeePositionService.CreateEmployeePosition(employeePositionData, employeeID, cancellationToken);
+        }
+
+        [HttpPatch("rate")]
+        public async Task UpdateEmployeePositionRate([FromBody] UpdateEmployeePositionRateDTO employeePositionData, int employeeID, CancellationToken cancellationToken)
+        {
+            await _employeePositionService.UpdateEmployeePositionRate(employeePositionData, employeeID, cancellationToken);
         }
     }
 }

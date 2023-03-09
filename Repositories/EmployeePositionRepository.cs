@@ -24,7 +24,8 @@ namespace EmployeeManagement.Repositories
                     EmployeeID = employeeID,
                     PositionID = ep.PositionID,
                     Status = ep.Status,
-                    EffectiveDate = ep.EffectiveDate
+                    EffectiveDate = ep.EffectiveDate,
+                    Rate = ep.Rate
                 })
                 .FirstOrDefaultAsync(cancellationToken);
 
@@ -34,7 +35,7 @@ namespace EmployeeManagement.Repositories
         }
 
         //Figure out a way to inactivate the current one before creating a new one
-        public async Task UpdateEmployeePosition(UpdateEmployeePositionDTO employeePositionData, int employeeID, CancellationToken cancellationToken)
+        public async Task CreateEmployeePosition(CreateEmployeePositionDTO employeePositionData, int employeeID, CancellationToken cancellationToken)
         {
             var currentPosition = await _dataContext.EmployeePositions.Where(ep => ep.EmployeeID == employeeID && ep.Status == StatusEnum.Active).FirstOrDefaultAsync(cancellationToken);
 
@@ -50,10 +51,20 @@ namespace EmployeeManagement.Repositories
                 EmployeeID = employeeID,
                 PositionID = employeePositionData.PositionID,
                 Status = StatusEnum.Active,
-                EffectiveDate = DateTime.Now
+                EffectiveDate = DateTime.Now,
+                Rate = employeePositionData.Rate
             };
 
             _dataContext.EmployeePositions.Add(newPosition);
+            await _dataContext.SaveChangesAsync(cancellationToken);
+        }
+
+        public async Task UpdateEmployeePositionRate(UpdateEmployeePositionRateDTO employeePositionData, int employeeID, CancellationToken cancellationToken)
+        {
+            var currentPosition = await _dataContext.EmployeePositions.Where(ep => ep.EmployeeID == employeeID && ep.Status == StatusEnum.Active).FirstOrDefaultAsync(cancellationToken);
+
+            currentPosition.Rate = employeePositionData.Rate;
+
             await _dataContext.SaveChangesAsync(cancellationToken);
         }
     }

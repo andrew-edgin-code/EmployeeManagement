@@ -10,10 +10,10 @@ namespace EmployeeManagement.Models.Entities
 
         public StatusEnum Status { get; set; }
         public DateTime EffectiveDate { get; set; }
+        public decimal Rate { get; set; }
 
 
         public Employee Employee { get; set; }
         public Position Position { get; set; }
-        public List<EmployeePositionRate> EmployeePositionRates { get; set; }
     }
 }
