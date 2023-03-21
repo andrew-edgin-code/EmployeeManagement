@@ -1,11 +1,12 @@
 ﻿using EmployeeManagement.Data;
 using EmployeeManagement.DTOs.Employee;
 using EmployeeManagement.Models.Entities;
+using EmployeeManagement.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace EmployeeManagement.Repositories
+namespace EmployeeManagement.Repositories.Implementations
 {
-    public class PositionRepository
+    public class PositionRepository : IPositionRepository
     {
         private readonly DataContext _dataContext;
 
@@ -47,7 +48,7 @@ namespace EmployeeManagement.Repositories
             _dataContext.Positions.Add(newPosition);
             await _dataContext.SaveChangesAsync(cancellationToken);
         }
-        
+
         public async Task UpdatePosition(UpdatePositionDTO positionData, int positionID, CancellationToken cancellationToken)
         {
             var position = await _dataContext.Positions.Where(p => p.PositionID == positionID).FirstOrDefaultAsync(cancellationToken);

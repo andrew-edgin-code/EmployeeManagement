@@ -1,11 +1,12 @@
 ﻿using EmployeeManagement.Data;
 using EmployeeManagement.DTOs.Employee;
 using EmployeeManagement.Models.Entities;
+using EmployeeManagement.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeManagement.Repositories
 {
-    public class EmployeeEmergencyContactRepository
+    public class EmployeeEmergencyContactRepository : IEmployeeEmergencyContactRepository
     {
         private readonly DataContext _dataContext;
 
@@ -53,10 +54,10 @@ namespace EmployeeManagement.Repositories
                 Name = emergencyContactData.Name,
                 Relationship = emergencyContactData.Relationship,
                 PhoneNumber = emergencyContactData.PhoneNumber,
-                StreetAddress= emergencyContactData.StreetAddress,
+                StreetAddress = emergencyContactData.StreetAddress,
                 City = emergencyContactData.City,
                 State = emergencyContactData.State,
-                ZipCode= emergencyContactData.ZipCode
+                ZipCode = emergencyContactData.ZipCode
             };
 
             _dataContext.EmployeeEmergencyContacts.Add(newEmergencyContact);

@@ -2,15 +2,16 @@
 using EmployeeManagement.DTOs.EmployeePosition;
 using EmployeeManagement.Models.Entities;
 using EmployeeManagement.Models.Enums;
+using EmployeeManagement.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeManagement.Repositories
 {
-    public class EmployeePositionRepository
+    public class EmployeePositionRepository : IEmployeePositionRepository
     {
         private readonly DataContext _dataContext;
 
-        public EmployeePositionRepository(DataContext dataContext) 
+        public EmployeePositionRepository(DataContext dataContext)
         {
             _dataContext = dataContext;
         }
@@ -39,7 +40,7 @@ namespace EmployeeManagement.Repositories
         {
             var currentPosition = await _dataContext.EmployeePositions.Where(ep => ep.EmployeeID == employeeID && ep.Status == StatusEnum.Active).FirstOrDefaultAsync(cancellationToken);
 
-            if (currentPosition != null) 
+            if (currentPosition != null)
             {
                 currentPosition.Status = StatusEnum.Inactive;
 

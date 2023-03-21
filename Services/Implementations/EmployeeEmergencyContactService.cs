@@ -1,13 +1,15 @@
 ﻿using EmployeeManagement.DTOs.Employee;
 using EmployeeManagement.Repositories;
+using EmployeeManagement.Repositories.Interfaces;
+using EmployeeManagement.Services.Interfaces;
 
-namespace EmployeeManagement.Services
+namespace EmployeeManagement.Services.Implementations
 {
-    public class EmployeeEmergencyContactService
+    public class EmployeeEmergencyContactService : IEmployeeEmergencyContactService
     {
-        private readonly EmployeeEmergencyContactRepository _employeeEmergencyContactRepository;
+        private readonly IEmployeeEmergencyContactRepository _employeeEmergencyContactRepository;
 
-        public EmployeeEmergencyContactService(EmployeeEmergencyContactRepository employeeEmergencyContactRepository)
+        public EmployeeEmergencyContactService(IEmployeeEmergencyContactRepository employeeEmergencyContactRepository)
         {
             _employeeEmergencyContactRepository = employeeEmergencyContactRepository;
         }

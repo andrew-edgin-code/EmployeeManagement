@@ -1,11 +1,12 @@
 ﻿using EmployeeManagement.Data;
 using EmployeeManagement.DTOs.Employee;
 using EmployeeManagement.Models.Entities;
+using EmployeeManagement.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace EmployeeManagement.Repositories
+namespace EmployeeManagement.Repositories.Implementations
 {
-    public class EmployeeRepository
+    public class EmployeeRepository : IEmployeeRepository
     {
         private readonly DataContext _dataContext;
 
@@ -70,20 +71,20 @@ namespace EmployeeManagement.Repositories
                 LastName = employeeData.LastName,
                 PhoneNumber = employeeData.PhoneNumber,
                 Email = employeeData.Email,
-                StreetAddress= employeeData.StreetAddress,
+                StreetAddress = employeeData.StreetAddress,
                 City = employeeData.City,
                 State = employeeData.State,
                 PostalCode = employeeData.PostalCode,
-                SocialSecurityNumber= employeeData.SocialSecurityNumber,
+                SocialSecurityNumber = employeeData.SocialSecurityNumber,
                 BirthDate = employeeData.BirthDate,
                 Gender = employeeData.Gender,
-                MaritalStatus= employeeData.MaritalStatus
+                MaritalStatus = employeeData.MaritalStatus
             };
 
             _dataContext.Employees.Add(newEmployee);
             await _dataContext.SaveChangesAsync(cancellationToken);
         }
-        
+
         public async Task UpdateEmployee(UpdateEmployeeDTO employeeData, int employeeID, CancellationToken cancellationToken)
         {
             var employee = await _dataContext.Employees.Where(e => e.EmployeeID == employeeID).FirstOrDefaultAsync(cancellationToken);

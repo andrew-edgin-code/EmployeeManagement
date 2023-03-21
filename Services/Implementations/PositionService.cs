@@ -1,13 +1,15 @@
 ﻿using EmployeeManagement.DTOs.Employee;
-using EmployeeManagement.Repositories;
+using EmployeeManagement.Repositories.Implementations;
+using EmployeeManagement.Repositories.Interfaces;
+using EmployeeManagement.Services.Interfaces;
 
-namespace EmployeeManagement.Services
+namespace EmployeeManagement.Services.Implementations
 {
-    public class PositionService
+    public class PositionService : IPositionService
     {
-        private readonly PositionRepository _positionRepository;
+        private readonly IPositionRepository _positionRepository;
 
-        public PositionService(PositionRepository positionRepository)
+        public PositionService(IPositionRepository positionRepository)
         {
             _positionRepository = positionRepository;
         }
@@ -26,7 +28,7 @@ namespace EmployeeManagement.Services
         {
             await _positionRepository.CreatePosition(positionData, cancellationToken);
         }
-        
+
         public async Task UpdatePosition(UpdatePositionDTO positionData, int positionID, CancellationToken cancellationToken)
         {
             await _positionRepository.UpdatePosition(positionData, positionID, cancellationToken);

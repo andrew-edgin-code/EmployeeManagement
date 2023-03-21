@@ -1,13 +1,15 @@
 ﻿using EmployeeManagement.DTOs.Employee;
-using EmployeeManagement.Repositories;
+using EmployeeManagement.Repositories.Implementations;
+using EmployeeManagement.Repositories.Interfaces;
+using EmployeeManagement.Services.Interfaces;
 
-namespace EmployeeManagement.Services
+namespace EmployeeManagement.Services.Implementations
 {
-    public class EmployeeService
+    public class EmployeeService : IEmployeeService
     {
-        private readonly EmployeeRepository _employeeRepository;
+        private readonly IEmployeeRepository _employeeRepository;
 
-        public EmployeeService(EmployeeRepository employeeRepository)
+        public EmployeeService(IEmployeeRepository employeeRepository)
         {
             _employeeRepository = employeeRepository;
         }
@@ -26,7 +28,7 @@ namespace EmployeeManagement.Services
         {
             await _employeeRepository.CreateEmployee(employeeData, cancellationToken);
         }
-        
+
         public async Task UpdateEmployee(UpdateEmployeeDTO employeeData, int employeeID, CancellationToken cancellationToken)
         {
             await _employeeRepository.UpdateEmployee(employeeData, employeeID, cancellationToken);

@@ -1,13 +1,15 @@
 ﻿using EmployeeManagement.DTOs.EmployeePosition;
 using EmployeeManagement.Repositories;
+using EmployeeManagement.Repositories.Interfaces;
+using EmployeeManagement.Services.Interfaces;
 
-namespace EmployeeManagement.Services
+namespace EmployeeManagement.Services.Implementations
 {
-    public class EmployeePositionService
+    public class EmployeePositionService : IEmployeePositionService
     {
-        private readonly EmployeePositionRepository _employeePositionRepository;
+        private readonly IEmployeePositionRepository _employeePositionRepository;
 
-        public EmployeePositionService(EmployeePositionRepository employeePositionRepository)
+        public EmployeePositionService(IEmployeePositionRepository employeePositionRepository)
         {
             _employeePositionRepository = employeePositionRepository;
         }

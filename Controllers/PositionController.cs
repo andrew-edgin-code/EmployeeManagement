@@ -1,6 +1,7 @@
 ﻿using EmployeeManagement.DTOs.Employee;
 using Microsoft.AspNetCore.Mvc;
-using EmployeeManagement.Services;
+using EmployeeManagement.Services.Implementations;
+using EmployeeManagement.Services.Interfaces;
 
 namespace EmployeeManagement.Controllers
 {
@@ -8,9 +9,9 @@ namespace EmployeeManagement.Controllers
     [Route("api/[controller]")]
     public class PositionController : ControllerBase
     {
-        private readonly PositionService _positionService;
+        private readonly IPositionService _positionService;
 
-        public PositionController(PositionService positionService)
+        public PositionController(IPositionService positionService)
         {
             _positionService = positionService;
         }

@@ -1,5 +1,6 @@
 ﻿using EmployeeManagement.DTOs.Employee;
-using EmployeeManagement.Services;
+using EmployeeManagement.Services.Implementations;
+using EmployeeManagement.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,9 +10,9 @@ namespace EmployeeManagement.Controllers
     [ApiController]
     public class EmployeeEmergencyContactController : ControllerBase
     {
-        private readonly EmployeeEmergencyContactService _employeeEmergencyContactService;
+        private readonly IEmployeeEmergencyContactService _employeeEmergencyContactService;
 
-        public EmployeeEmergencyContactController(EmployeeEmergencyContactService employeeEmergencyContactService)
+        public EmployeeEmergencyContactController(IEmployeeEmergencyContactService employeeEmergencyContactService)
         {
             _employeeEmergencyContactService = employeeEmergencyContactService;
         }
